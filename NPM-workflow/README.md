@@ -1,1 +1,1 @@
-# Terrform module to deploy N4K and Policy sets and register cluster in NPM
+# Terraform module for deploying N4K,  Policy sets and registering clusters in NPM
