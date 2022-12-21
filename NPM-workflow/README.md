@@ -2,6 +2,12 @@
 
 The terraform module deploys N4K, best practice policy set, and pod security policy set and registers the EKS cluster with NPM.
 
+## Steps to deploy the terraform module:
+
+```
+Make the necessary changes to the main.tf file
+```
+
 ## Usage:
 
 ```
@@ -13,8 +19,6 @@ imagePullSecret_password = "<<Image pull secret token>>"
 nirmata_cluster_name     = "<<Name of the cluster to be registered in NPM>>"
 }
 ```
-
-Steps to deploy the terraform module:
 
 ```
 terraform init
@@ -36,4 +40,4 @@ terraform plan
 terraform apply
 ```
 
-You should see the cluster registered in NPM and N4K deployed along with all the policy set.
+You should see the EKS cluster registered in NPM and N4K deployed along with all the policy set.
