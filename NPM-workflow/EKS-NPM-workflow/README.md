@@ -4,6 +4,7 @@ The terraform module deploys N4K, best practice policy set, and pod security pol
 
 
 Note:- Currently this module is supported to:-
+
         1. OS:- CentOS, MacOS
         2. Terraform Version:- v1.3.6
 
