@@ -13,16 +13,16 @@ variable "azure_resource_group" {
   type        = string
 }
 
+
 variable "nirmata_api_key" {
-  default     = "<<Nirmata API token>>"
   description = "Nirmata API Key"
   type        = string
   sensitive   = true
 }
 
-variable "imagePullSecret_password" {
-  default     = "<<Image pull secret token>>"
-  description = "Image Pull Secret password"
+variable "licenseKey" {
+  description = "Value of license key"
+  type        = string
   sensitive   = true
 }
 
