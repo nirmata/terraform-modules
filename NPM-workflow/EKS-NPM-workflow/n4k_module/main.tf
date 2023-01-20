@@ -8,15 +8,9 @@ resource "helm_release" "kyverno" {
   create_namespace = true
 
   set {
-    name  = "image.pullSecrets.username"
-    value = "nirmata-enterprise-for-kyverno"
+   name = "licenseManager.licenseKey"
+   value = var.licenseKey
   }
-
-  set {
-    name  = "image.pullSecrets.password"
-    value = var.imagePullSecret_password
-  }
-
 }
 
 // Deploy kyverno-operator
@@ -31,17 +25,6 @@ resource "helm_release" "kyverno-operator" {
     data.aws_eks_cluster.cluster,
     helm_release.kyverno
   ]
-
-
-  set {
-    name  = "imagePullSecret.username"
-    value = "nirmata-enterprise-for-kyverno"
-  }
-
-  set {
-    name  = "imagePullSecret.password"
-    value = var.imagePullSecret_password
-  }
 }
 
 //Deploy best-practise policies

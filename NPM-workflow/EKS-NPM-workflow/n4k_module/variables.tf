@@ -10,15 +10,15 @@ variable "nirmata_api_key" {
   sensitive   = true
 }
 
-
-variable "imagePullSecret_password" {
-  description = "Image Pull Secret password"
+variable "licenseKey" {
+  description = "Value of license key"
+  type        = string
   sensitive   = true
 }
+
 
 // Name of Nirmata cluster
 variable "nirmata_cluster_name" {
   description = "Nirmata Cluster Name"
   type        = string
 }
-
