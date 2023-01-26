@@ -7,9 +7,23 @@ resource "helm_release" "kyverno" {
   namespace        = "kyverno"
   create_namespace = true
 
+  values = [
+    "${file("values.yaml")}"
+  ]
+
   set {
-   name = "licenseManager.licenseKey"
-   value = var.licenseKey
+    name  = "licenseManager.licenseKey"
+    value = var.licenseKey
+  }
+
+  set {
+    name  = "podDisruptionBudget.minAvailable"
+    value = 1
+  }
+
+  set {
+    name  = "replicaCount"
+    value = 3
   }
 }
 
