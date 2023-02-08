@@ -6,7 +6,7 @@ Prerequisites:-
 
 	1. Existing AKS Cluster should be available.
 	2. Azure CLI should be configured with AKS Cluster Access.
-        3. Existing Nimata Cluster type should be available.
+	3. Existing Nimata Cluster type should be available.
 
 Note:- Currently this module is supported to:-
 
