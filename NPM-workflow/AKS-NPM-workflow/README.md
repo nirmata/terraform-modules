@@ -1,7 +1,6 @@
-# A Terraform module for deploying N4K, Policy sets and registering AKS clusters in NPM
+# A Terraform module for deploying N4K, Policy sets and registering AKS clusters
 
-The terraform module deploys N4K, best practice policy set, and pod security policy set and registers the AKS cluster with NPM.
-
+The terraform module deploys N4K, best practice policy set, and pod security policy set and registers the AKS cluster.
 
 Note:- Currently this module is supported to:-
 
@@ -17,14 +16,14 @@ Make the necessary changes to the main.tf file
 ## Usage:
 
 ```
-
 module "n4k_module" {
 source                        = "./n4k_module"
 aks_cluster_name              = "<<AKS cluster name>>"
 azure_resource_group          = "<<Azure Resource Group Name>>"
 nirmata_api_key               = "<<Nirmata API token>>"
 licenseKey                    = "<<License key>>"
-nirmata_cluster_name          = "<<Name of the cluster to be registered in NPM>>"
+nirmata_cluster_name          = "<<Name of the nirmata cluster to be registered>>"
+nirmata_cluster_type          = "<<Name of the nirmata cluster type>>"
 }
 
 ```
@@ -50,3 +49,4 @@ terraform apply
 ```
 
 You should see the AKS cluster registered in NPM and N4K deployed along with all the policy set.
+

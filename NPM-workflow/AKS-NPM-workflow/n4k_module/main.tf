@@ -67,10 +67,10 @@ resource "helm_release" "pod-security-policies" {
   ]
 }
 
-// Register Cluster in NPM
+// Register Nirmata Cluster 
 resource "nirmata_cluster_registered" "aks-registered" {
-  name         = var.aks_cluster_name
-  cluster_type = "default-policy-manager-type"
+  name         = var.nirmata_cluster_name
+  cluster_type = var.nirmata_cluster_type
 }
 
 // apply the controller YAMLs
