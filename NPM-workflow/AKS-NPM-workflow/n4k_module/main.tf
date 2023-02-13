@@ -1,3 +1,16 @@
+// Deploy kyverno-operator
+
+resource "helm_release" "kyverno-operator" {
+  name             = "kyverno-operator"
+  repository       = "https://nirmata.github.io/kyverno-charts"
+  chart            = "kyverno-operator"
+  namespace        = "nirmata-kyverno-operator"
+  create_namespace = true
+  depends_on = [
+    data.azurerm_kubernetes_cluster.cluster
+  ]
+}
+
 //Install N4K
 
 resource "helm_release" "kyverno" {
@@ -6,6 +19,10 @@ resource "helm_release" "kyverno" {
   chart            = "kyverno"
   namespace        = "kyverno"
   create_namespace = true
+  depends_on = [
+    data.azurerm_kubernetes_cluster.cluster,
+    helm_release.kyverno-operator
+  ]
 
   values = [
     "${file("values.yaml")}"
@@ -25,20 +42,6 @@ resource "helm_release" "kyverno" {
     name  = "replicaCount"
     value = 3
   }
-}
-
-// Deploy kyverno-operator
-
-resource "helm_release" "kyverno-operator" {
-  name             = "kyverno-operator"
-  repository       = "https://nirmata.github.io/kyverno-charts"
-  chart            = "kyverno-operator"
-  namespace        = "nirmata-kyverno-operator"
-  create_namespace = true
-  depends_on = [
-    data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno
-  ]
 }
 
 //Deploy best-practise policies
@@ -67,7 +70,7 @@ resource "helm_release" "pod-security-policies" {
   ]
 }
 
-// Register Nirmata Cluster 
+// Register Nirmata Cluster
 resource "nirmata_cluster_registered" "aks-registered" {
   name         = var.nirmata_cluster_name
   cluster_type = var.nirmata_cluster_type
