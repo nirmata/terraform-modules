@@ -17,6 +17,7 @@ resource "helm_release" "kyverno" {
   name             = "kyverno"
   repository       = "https://nirmata.github.io/kyverno-charts"
   chart            = "kyverno"
+  version          = "1.6.1"
   namespace        = "kyverno"
   create_namespace = true
   depends_on = [
