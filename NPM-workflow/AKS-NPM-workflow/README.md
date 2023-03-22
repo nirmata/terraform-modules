@@ -8,7 +8,12 @@ Prerequisites:-
 	2. Azure CLI should be configured with AKS Cluster Access.
 	3. Existing Nimata Cluster type should be available.
 
-Note:- Currently this module is supported to:-
+Note:- To deploy the kyverno:-
+
+	 v1.8.5 use the v1.8.5 branch.
+ 	 v1.9.1 use the v1.9.1 branch.
+
+   Currently this module is supported to:-
 
 	1. OS:- CentOS, MacOS
 	2. Terraform Version:- v1.3.6
