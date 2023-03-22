@@ -2,13 +2,18 @@
 
 The terraform module deploys N4K, best practice policy set, and pod security policy set and registers the AKS cluster.
 
+Note:- To deploy the kyverno:-
+
+	 v1.8.5 use the v1.8.5 branch.
+ 	 v1.9.1 use the v1.9.1 branch.
+
 Prerequisites:-
 
 	1. Existing AKS Cluster should be available.
 	2. Azure CLI should be configured with AKS Cluster Access.
 	3. Existing Nimata Cluster type should be available.
 
-Note:- Currently this module is supported to:-
+Currently this module is supported to:-
 
 	1. OS:- CentOS, MacOS
 	2. Terraform Version:- v1.3.6
