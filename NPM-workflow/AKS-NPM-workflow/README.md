@@ -4,7 +4,7 @@ The terraform module deploys N4K, best practice policy set, and pod security pol
 
 Note:- To deploy the kyverno:-
 
-	 v1.8.5 use the v1.8.5 branch.
+	 v1.8.5 use the tf-v1.1.8-v1.8.5 branch
  	 v1.9.1 use the v1.9.1 branch.
 
 Prerequisites:-
