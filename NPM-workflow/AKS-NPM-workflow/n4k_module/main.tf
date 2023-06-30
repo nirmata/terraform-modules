@@ -81,4 +81,5 @@ resource "nirmata_cluster_registered" "aks-registered" {
 resource "kubectl_manifest" "test" {
   count     = nirmata_cluster_registered.aks-registered.controller_yamls_count
   yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
+  apply_only = true
 }
