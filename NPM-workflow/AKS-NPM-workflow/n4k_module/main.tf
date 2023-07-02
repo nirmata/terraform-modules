@@ -1,16 +1,3 @@
-// Deploy kyverno-operator
-
-resource "helm_release" "kyverno-operator" {
-  name             = "kyverno-operator"
-  repository       = "https://nirmata.github.io/kyverno-charts"
-  chart            = "kyverno-operator"
-  namespace        = "nirmata-kyverno-operator"
-  create_namespace = true
-  depends_on = [
-    data.azurerm_kubernetes_cluster.cluster
-  ]
-}
-
 //Install N4K
 
 resource "helm_release" "kyverno" {
@@ -21,8 +8,7 @@ resource "helm_release" "kyverno" {
   namespace        = "kyverno"
   create_namespace = true
   depends_on = [
-    data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno-operator
+    data.azurerm_kubernetes_cluster.cluster
   ]
 
   values = [
@@ -53,8 +39,7 @@ resource "helm_release" "best-practice-policies" {
   chart      = "best-practice-policies"
   depends_on = [
     data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno,
-    helm_release.kyverno-operator
+    helm_release.kyverno
   ]
 }
 
@@ -66,8 +51,7 @@ resource "helm_release" "pod-security-policies" {
   chart      = "pod-security-policies"
   depends_on = [
     data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno,
-    helm_release.kyverno-operator
+    helm_release.kyverno
   ]
 }
 
@@ -78,8 +62,26 @@ resource "nirmata_cluster_registered" "aks-registered" {
 }
 
 // apply the controller YAMLs
-resource "kubectl_manifest" "test" {
-  count     = nirmata_cluster_registered.aks-registered.controller_yamls_count
-  yaml_body = file(element(data.kubectl_filename_list.manifests.matches, count.index))
-  apply_only = true
+
+resource "kubectl_manifest" "namespace" {
+  wait        = true
+  count       = nirmata_cluster_registered.aks-registered.controller_ns_yamls_count
+  yaml_body   = file(element(data.kubectl_filename_list.namespace.matches, count.index))
+  apply_only  = true
+}
+
+resource "kubectl_manifest" "crd" {
+  wait        = true
+  count       = nirmata_cluster_registered.aks-registered.controller_crd_yamls_count
+  yaml_body   = file(element(data.kubectl_filename_list.crd.matches, count.index))
+  apply_only  = true
+  depends_on  = [kubectl_manifest.namespace]
+}
+
+resource "kubectl_manifest" "deployment" {
+  wait        = true
+  count       = nirmata_cluster_registered.aks-registered.controller_deploy_yamls_count
+  yaml_body   = file(element(data.kubectl_filename_list.deployment.matches, count.index))
+  apply_only  = true
+  depends_on  = [kubectl_manifest.crd]
 }
