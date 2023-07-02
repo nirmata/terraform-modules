@@ -1,15 +1,3 @@
-// Deploy kyverno-operator
-
-resource "helm_release" "kyverno-operator" {
-  name             = "kyverno-operator"
-  repository       = "https://nirmata.github.io/kyverno-charts"
-  chart            = "kyverno-operator"
-  namespace        = "nirmata-kyverno-operator"
-  create_namespace = true
-  depends_on = [
-    data.azurerm_kubernetes_cluster.cluster
-  ]
-}
 
 //Install N4K
 
@@ -22,7 +10,6 @@ resource "helm_release" "kyverno" {
   create_namespace = true
   depends_on = [
     data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno-operator
   ]
 
   values = [
@@ -53,8 +40,7 @@ resource "helm_release" "best-practice-policies" {
   chart      = "best-practice-policies"
   depends_on = [
     data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno,
-    helm_release.kyverno-operator
+    helm_release.kyverno
   ]
 }
 
@@ -66,8 +52,7 @@ resource "helm_release" "pod-security-policies" {
   chart      = "pod-security-policies"
   depends_on = [
     data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno,
-    helm_release.kyverno-operator
+    helm_release.kyverno
   ]
 }
 
