@@ -17,7 +17,7 @@ terraform {
 
     nirmata = {
       source  = "nirmata/nirmata"
-      version = "1.1.12-rc1"
+      version = "1.1.12"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
