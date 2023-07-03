@@ -32,8 +32,6 @@ do
 echo "Terraform apply failed. Retrying..."
 sleep 5
 
-#terraform destroy -target module.n4k_module.nirmata_cluster_registered.aks-registered --auto-approve
-#terraform apply -target module.n4k_module.nirmata_cluster_registered.aks-registered --auto-approve
 terraform apply --auto-approve
 done
 echo "Terraform apply successful."
