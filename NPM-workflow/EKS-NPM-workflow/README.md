@@ -39,11 +39,11 @@ terraform init
 ```
 
 ```
-terraform plan -target module.n4k_module.nirmata_cluster_registered.EKS-registered
+terraform plan -target module.n4k_module.nirmata_cluster_registered.eks-registered
 ```
 
 ```
-terraform apply -target module.n4k_module.nirmata_cluster_registered.EKS-registered
+terraform apply -target module.n4k_module.nirmata_cluster_registered.eks-registered
 ```
 
 ```
