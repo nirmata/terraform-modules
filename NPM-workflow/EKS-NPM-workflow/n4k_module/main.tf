@@ -9,7 +9,7 @@ resource "helm_release" "nirmata-kyverno-operator" {
   namespace        = "nirmata-system"
   create_namespace = true
   depends_on = [
-    data.azurerm_kubernetes_cluster.cluster,
+    data.aws_eks_cluster.cluster,
   ]
 
   values = [

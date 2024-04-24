@@ -25,7 +25,7 @@ Make the necessary changes to the main.tf file
 ```
 module "n4k_module" {
 source                        = "./n4k_module"
-EKS_cluster_name              = "<<EKS cluster name>>"
+eks_cluster_name              = "<<EKS cluster name>>"
 nirmata_api_key               = "<<Nirmata API token>>"
 licenseKey                    = "<<License key>>"
 nirmata_cluster_name          = "<<Name of the nirmata cluster to be registered>>"
