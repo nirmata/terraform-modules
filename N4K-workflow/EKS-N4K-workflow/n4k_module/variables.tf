@@ -4,21 +4,18 @@ variable "aws_eks_cluster_name" {
   type        = string
 }
 
+
+// Nirmata API Key
 variable "nirmata_api_key" {
   description = "Nirmata API Key"
   type        = string
   sensitive   = true
 }
 
+// Value of license key
 variable "licenseKey" {
   description = "Value of license key"
   type        = string
   sensitive   = true
 }
 
-
-// Name of Nirmata cluster
-variable "nirmata_cluster_name" {
-  description = "Nirmata Cluster Name"
-  type        = string
-}
