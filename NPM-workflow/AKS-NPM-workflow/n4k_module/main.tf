@@ -1,14 +1,15 @@
-//Install N4K
 
-resource "helm_release" "kyverno" {
+//Install N4K Operator
+
+resource "helm_release" "nirmata-kyverno-operator" {
   name             = "kyverno"
   repository       = "https://nirmata.github.io/kyverno-charts"
-  chart            = "kyverno"
-  version          = "1.6.1"
-  namespace        = "kyverno"
+  chart            = "nirmata-kyverno-operator"
+  version          = "v0.4.2"
+  namespace        = "nirmata-system"
   create_namespace = true
   depends_on = [
-    data.azurerm_kubernetes_cluster.cluster
+    data.azurerm_kubernetes_cluster.cluster,
   ]
 
   values = [
@@ -16,44 +17,31 @@ resource "helm_release" "kyverno" {
   ]
 
   set {
-    name  = "licenseManager.licenseKey"
+    name  = "licenseKey"
     value = var.licenseKey
   }
 
   set {
-    name  = "podDisruptionBudget.minAvailable"
+    name  = "kyverno.replicaCount"
+    value = 3
+  }
+
+  set {
+    name  = "kyverno.helm.backgroundController.replicas"
+    value = 2
+  }
+
+  set {
+    name  = "kyverno.helm.cleanupController.replicas"
     value = 1
   }
 
   set {
-    name  = "replicaCount"
-    value = 3
+    name  = "kyverno.helm.reportsController.replicas"
+    value = 2
   }
 }
 
-//Deploy best-practise policies
-
-resource "helm_release" "best-practice-policies" {
-  name       = "best-practice-policies"
-  repository = "https://nirmata.github.io/kyverno-charts"
-  chart      = "best-practice-policies"
-  depends_on = [
-    data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno
-  ]
-}
-
-//Deploy pod security polcices
-
-resource "helm_release" "pod-security-policies" {
-  name       = "pod-security-policies"
-  repository = "https://nirmata.github.io/kyverno-charts"
-  chart      = "pod-security-policies"
-  depends_on = [
-    data.azurerm_kubernetes_cluster.cluster,
-    helm_release.kyverno
-  ]
-}
 
 // Register Nirmata Cluster
 resource "nirmata_cluster_registered" "aks-registered" {
